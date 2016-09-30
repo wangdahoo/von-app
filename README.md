@@ -1,4 +1,4 @@
-# vue-ios-app
+# vue-app
 
-> vue ios app demo
+> vue app demo
 
