@@ -8,6 +8,10 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  resolve: {
+    extensions: ['', '.js', '.vue'],
+    fallback: [path.join(__dirname, './node_modules')]
+  },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
   },
@@ -39,6 +43,11 @@ module.exports = {
         }
       }
     ]
+  },
+  vue: {
+    loaders: {
+      less: 'style!css!less',
+    }
   },
   devServer: {
     historyApiFallback: true,

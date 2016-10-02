@@ -1,19 +1,26 @@
 <template>
-  <h1>Index</h1>
+  <page>
+    <h1>Index</h1>
+    <a v-link="{path: '/about'}">about</a>
+  </page>
 </template>
 
 <script>
-export default {
-  data () {
-    return {}
-  },
-  ready () {
 
-  },
-  methods: {
+  import Page from './Page.vue'
+  export default {
+    components: {
+      Page
+    },
 
+    data () {
+      return {}
+    },
+    ready () {
+
+    },
+    methods: {}
   }
-}
 </script>
 
 <style>

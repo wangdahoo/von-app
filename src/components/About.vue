@@ -1,15 +1,24 @@
 <template>
-  <h1>About</h1>
+  <page>
+    <h1>About</h1>
+  </page>
 </template>
 
 <script>
-export default {
-  data () {
-    return {}
-  },
-  ready () {},
-  methods: {}
-}
+  import Page from './Page.vue'
+
+  export default {
+    components: {
+      Page
+    },
+
+    data () {
+      return {}
+    },
+    ready () {
+    },
+    methods: {}
+  }
 </script>
 
 <style>

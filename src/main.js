@@ -16,11 +16,11 @@ const routers = {
   }
 }
 
-import Navbar from './components/Navbar.vue'
+import ToolBar from './components/ToolBar.vue'
 
 let app = Vue.extend({
   components: {
-    Navbar
+    Navbar: ToolBar
   }
 })
 let router = new VueRouter({
