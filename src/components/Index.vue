@@ -1,16 +1,16 @@
 <template>
-  <page>
-    <h1>Index</h1>
-    <a v-link="{path: '/about'}">about</a>
-  </page>
+  <div class="page">
+    <div class="page-content">
+      <h1>Index</h1>
+      <a v-link="{path: '/about'}">about</a>
+    </div>
+  </div>
 </template>
 
 <script>
-
-  import Page from './Page.vue'
   export default {
     components: {
-      Page
+
     },
 
     data () {

@@ -1,15 +1,16 @@
 <template>
-  <page>
-    <h1>About</h1>
-  </page>
+  <div class="page">
+    <div class="page-content">
+      <h1>About</h1>
+    </div>
+  </div>
 </template>
 
 <script>
-  import Page from './Page.vue'
 
   export default {
     components: {
-      Page
+
     },
 
     data () {

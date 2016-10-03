@@ -1,3 +1,5 @@
+require('style!css!less!./less/app.less')
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
@@ -16,11 +18,11 @@ const routers = {
   }
 }
 
-import ToolBar from './components/ToolBar.vue'
+Vue.transition('page', {enterClass: 'page-from-right-to-center', leaveClass: 'page-from-center-to-left'})
 
 let app = Vue.extend({
   components: {
-    Navbar: ToolBar
+    // Navbar: ToolBar
   }
 })
 let router = new VueRouter({
