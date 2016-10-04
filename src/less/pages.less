@@ -23,21 +23,7 @@
     display: none;
   }
 }
-.page-on-left {
-  opacity: 0.9;
-  .translate3d(-20%);
-}
-.page-on-center {
-  .swipeback-page-shadow {
-    opacity: 1;
-  }
-}
-.page-on-right {
-  .translate3d(100%);
-  .swipeback-page-shadow {
-    opacity: 0;
-  }
-}
+
 .page-content {
   .scrollable();
   box-sizing: border-box;
@@ -62,35 +48,42 @@
     .animation(none);
   }
 }
-.swipeback-page-shadow {
-  .page-fake-shadow();
-}
 
-
-//Class that will trigger transition during page custom transitions (like swipe-back)
-.page-transitioning {
-  &, .swipeback-page-shadow {
-    .transition(@pageDuration);
-  }
-}
-.page-from-right-to-center, .page-from-center-to-right {
+/* page transition */
+.page-enter {
   &:before {
     .page-fake-shadow();
-  }
-}
-// From/to Right To/from Center animations
-.page-from-right-to-center {
-  &:before {
     .animation(pageFromRightToCenterShadow @pageDuration forwards);
   }
   .animation(pageFromRightToCenter @pageDuration forwards);
+  .translate3d(100%);
+  z-index: 2;
 }
-.page-from-center-to-right {
-  &:before {
-    .animation(pageFromCenterToRightShadow @pageDuration forwards);
+
+.page-leave {
+  .animation(pageFromCenterToLeft @pageDuration forwards);
+  z-index: 1;
+}
+
+.transition-reverse {
+  .page-enter {
+    opacity: 0.9;
+    .translate3d(-20%);
+    .animation(pageFromLeftToCenter @pageDuration forwards);
+    z-index: 1;
   }
-  .animation(pageFromCenterToRight @pageDuration forwards);
+
+  .page-leave {
+    &:before {
+      .page-fake-shadow();
+      .animation(pageFromCenterToRightShadow @pageDuration forwards);
+    }
+    .animation(pageFromCenterToRight @pageDuration forwards);
+    .translate3d(100%);
+    z-index: 2;
+  }
 }
+
 @-webkit-keyframes pageFromRightToCenter {
   from {
     -webkit-transform: translate3d(100%,0,0);
@@ -154,15 +147,6 @@
   to {
     opacity: 0;
   }
-}
-
-
-// From/to Center To/from Left animations
-.page-from-center-to-left {
-  .animation(pageFromCenterToLeft @pageDuration forwards);
-}
-.page-from-left-to-center {
-  .animation(pageFromLeftToCenter @pageDuration forwards);
 }
 
 @-webkit-keyframes pageFromCenterToLeft {

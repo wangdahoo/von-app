@@ -7,6 +7,7 @@ Vue.use(VueRouter)
 // components
 import Index from './components/Index.vue'
 import About from './components/About.vue'
+import Navbar from './components/Navbar.vue'
 
 const routers = {
   '/': {
@@ -18,15 +19,16 @@ const routers = {
   }
 }
 
-Vue.transition('page', {enterClass: 'page-from-right-to-center', leaveClass: 'page-from-center-to-left'})
+Vue.transition('page', {enterClass: 'page-enter', leaveClass: 'page-leave'})
 
 let app = Vue.extend({
   components: {
-    // Navbar: ToolBar
+    Navbar: Navbar
   }
 })
+
 let router = new VueRouter({
-  history: false
+  history: true
 })
 
 router.map(routers)
