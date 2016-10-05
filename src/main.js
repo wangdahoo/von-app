@@ -33,13 +33,13 @@ let router = new VueRouter({
 
 router.map(routers)
 
-// router.beforeEach(() => {
-//
-// })
-//
-// router.afterEach(() => {
-//
-// })
+router.beforeEach(() => {
+
+})
+
+router.afterEach(() => {
+
+})
 
 router.redirect({
   '*': '/'
