@@ -40,8 +40,9 @@ class VueApp {
 
     router.beforeEach((t) => {
       //  console.log(t.to, t.from);
-      let navbars = [t.from.navbar || { title: 'dummy' }, t.to.navbar]
-      vm.$emit('PageTransitionEvent', {reverse: false, navbars: navbars})
+      let navbars = [t.from.navbar || {}, t.to.navbar]
+      vm.$emit('PageTransitionEvent',
+        {reverse: window.nextTransition == 'back', navbars: navbars})
       t.next()
     })
 
