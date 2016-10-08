@@ -23,4 +23,9 @@
 </script>
 
 <style>
+
+  .page-content {
+    padding: 15px;
+  }
+
 </style>
