@@ -9,15 +9,15 @@
 
     <div class="navbar-inner" :class="{'navbar-on-right': !transition, 'navbar-from-right-to-center': transition && !done}">
       <div class="left">
-        <!--<a class="back link" @click="back()">
+        <a class="back link" @click="back()">
           <i class="icon icon-back"></i><span>Back</span>
-        </a>-->
+        </a>
       </div>
       <div class="center sliding">About</div>
       <div class="right">
-        <!--<a class="link icon-only">
+        <a class="link icon-only">
           <i class="icon icon-bars"></i>
-        </a>-->
+        </a>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
         setTimeout(() => {
           this.done = true
         }, 400)
-      }, 1000)
+      }, 500)
 
 
     },

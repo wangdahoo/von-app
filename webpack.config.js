@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './demo/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -10,7 +10,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
-    fallback: [path.join(__dirname, './node_modules')]
+    fallback: [path.join(__dirname, './node_modules')],
+    alias: {
+      'vue-app': path.resolve(__dirname, './src'),
+    }
   },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
