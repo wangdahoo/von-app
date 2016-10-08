@@ -4,18 +4,33 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import Navbar from './components/Navbar'
 
-class App {
+let vm = new Vue()
+
+let app = Vue.extend({
+  components: {
+    Navbar: Navbar
+  },
+
+  created() {
+    vm.$on('PageTransitionEvent', (data) => {
+      this.notify('PageTransitionEvent', data)
+    })
+  },
+
+  methods: {
+    notify(eventName, data) {
+      this.$broadcast(eventName, data)
+    }
+  }
+})
+
+class VueApp {
   constructor(routers, defaultRouterUrl) {
     this.routers = routers
     this.defaultRouterUrl = defaultRouterUrl
   }
 
   start() {
-    let app = Vue.extend({
-      components: {
-        Navbar: Navbar
-      }
-    })
 
     let router = new VueRouter({
       history: false
@@ -23,8 +38,11 @@ class App {
 
     router.map(this.routers)
 
-    router.beforeEach(() => {
-      // todo
+    router.beforeEach((t) => {
+      //  console.log(t.to, t.from);
+      let navbars = [t.from.navbar || { title: 'dummy' }, t.to.navbar]
+      vm.$emit('PageTransitionEvent', {reverse: false, navbars: navbars})
+      t.next()
     })
 
     router.afterEach(() => {
@@ -48,7 +66,7 @@ export default {
     const routers = options.routers
     const defaultRouterUrl = options.defaultRouterUrl
 
-    let app = new App(routers, defaultRouterUrl)
+    let app = new VueApp(routers, defaultRouterUrl)
     app.start()
   }
 }

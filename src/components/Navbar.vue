@@ -1,73 +1,98 @@
 <template>
   <div class="navbar">
 
-    <div class="navbar-inner" :class="{'navbar-from-center-to-left': transition, 'navbar-on-left': done}">
-      <div class="left"></div>
-      <div class="center sliding">Home</div>
-      <div class="right"></div>
+    <div class="navbar-inner"
+         :class="{'navbar-from-center-to-left': state == 1, 'navbar-on-left': state == 2}">
+      <div class="left">
+        <a v-if="navbars[0] && navbars[0].showBackLink" class="link back" @click="back()">
+          <i class="icon icon-back"></i>
+          <span>返回</span>
+        </a>
+      </div>
+      <div class="center sliding" :style="{transform: 'translate3d(-' + x0 + 'px,0,0)'}">
+        {{ navbars[0] && navbars[0].title }}
+      </div>
+      <div class="right">
+        {{{ navbars[0] && navbars[0].rightItem }}}
+      </div>
     </div>
 
-    <div class="navbar-inner" :class="{'navbar-on-right': !transition, 'navbar-from-right-to-center': transition && !done}">
+    <div class="navbar-inner" :class="{'navbar-on-right': state == 0, 'navbar-from-right-to-center': state == 1}">
       <div class="left">
-        <a class="back link" @click="back()">
-          <i class="icon icon-back"></i><span>Back</span>
+        <a v-if="navbars[1] && navbars[1].showBackLink" class="link back" @click="back()">
+          <i class="icon icon-back"></i>
+          <span>返回</span>
         </a>
       </div>
-      <div class="center sliding">About</div>
+      <div class="center sliding" :style="{transform: 'translate3d(' + x1 + 'px,0,0)'}">
+        {{ navbars[1] && navbars[1].title }}
+      </div>
       <div class="right">
-        <a class="link icon-only">
-          <i class="icon icon-bars"></i>
-        </a>
+        {{{ navbars[1] && navbars[1].rightItem }}}
       </div>
     </div>
+
   </div>
 </template>
 <style>
 
 </style>
 <script>
-  import $ from 'jquery'
+  import classie from '../classie'
+  import Vue from 'vue'
+
+  function d(n) {
+    return (document.body.offsetWidth - document.querySelectorAll('.navbar-inner > .center')[n].offsetWidth - 20) / 2
+  }
 
   export default{
     data() {
       return {
-        transition: false,
-        done: false
+        navbars: [],
+        state: 0, // 0: setup, 1: transition, 2: end
+        x0: 0,
+        x1: 0
       }
+    },
+
+    created() {
+      this.$on('PageTransitionEvent', (data) => {
+//        console.log(data.navbars)
+        this.navbars = data.navbars
+        Vue.nextTick(() => {
+          this.setup()
+          setTimeout(this.transition)
+        })
+      })
     },
     
     ready() {
-      let d2 = ( $(window).width() - $('.navbar-inner:eq(1) > .center').width() - 20 ) / 2
-      $('.navbar-inner:eq(1) > .center').css({
-        'transform': 'translate3d(' + d2 + 'px, 0, 0)'
-      })
-
-      setTimeout(() => {
-        this.transition = true
-
-        let d1 = ( $(window).width() - $('.navbar-inner:eq(0) > .center').width() - 20 ) / 2
-        $('.navbar-inner:eq(0) > .center').css({
-          'transform': 'translate3d(-' + d1 + 'px, 0, 0)'
-        })
-
-        $('.navbar-inner:eq(1) > .center').css({
-          'transform': 'translate3d(0, 0, 0)'
-        })
-
-        setTimeout(() => {
-          this.done = true
-        }, 400)
-      }, 500)
-
 
     },
 
     methods: {
-      back() {
-        $('#app').addClass('transition-reverse');
+      setup(reverse) {
+        this.state = 0
+        this.x0 = 0
+        this.x1 = d(1)
+      },
 
+      transition() {
+        this.state = 1
+        this.x0 = d(0)
+        this.x1 = 0
+        setTimeout(this.transitionEnd, 400)
+      },
+
+      transitionEnd() {
+        this.state = 2
+        this.x1 = 0
+      },
+
+      back() {
+        classie.addClass(document.getElementById('app'), 'transition-reverse')
         setTimeout(() => {
-          $('#app').removeClass('transition-reverse');
+          classie.removeClass(document.getElementById('app'), 'transition-reverse')
         }, 500)
         $router.go({ path: '/' })
       }
