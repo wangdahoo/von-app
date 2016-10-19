@@ -2,6 +2,8 @@
   <div class="page">
     <div class="page-content">
         <h1>About</h1>
+
+        <a v-link="{path: '/'}">back</a>
     </div>
   </div>
 </template>
