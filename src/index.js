@@ -36,14 +36,13 @@ class VonApp {
 
     router.map(this.routers)
 
-    router.beforeEach((t) => {
-      // todo:
-      t.next()
-    })
-
-    router.afterEach(() => {
-      // todo:
-    })
+    // router.beforeEach(() => {
+    //
+    // })
+    //
+    // router.afterEach(() => {
+    //
+    // })
 
     router.redirect({
       '*': this.defaultRouterUrl
@@ -57,7 +56,7 @@ class VonApp {
 
 export default {
   install(Vue, options) {
-    Vue.transition('von-page', {enterClass: 'von-page-enter', leaveClass: 'von-page-leave'})
+    Vue.transition('page', {enterClass: 'page-enter', leaveClass: 'page-leave'})
 
     const routers = options.routers
     const defaultRouterUrl = options.defaultRouterUrl
