@@ -1,14 +1,13 @@
-import 'style!css!less!../src/less/app.less'
+import 'style!css!less!./less/app.less'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
-import Navbar from './components/Navbar'
 
 let vm = new Vue()
 
 let app = Vue.extend({
   components: {
-    Navbar: Navbar
+
   },
 
   created() {
@@ -24,14 +23,13 @@ let app = Vue.extend({
   }
 })
 
-class VueApp {
+class VonApp {
   constructor(routers, defaultRouterUrl) {
     this.routers = routers
     this.defaultRouterUrl = defaultRouterUrl
   }
 
   start() {
-
     let router = new VueRouter({
       history: false
     })
@@ -39,22 +37,19 @@ class VueApp {
     router.map(this.routers)
 
     router.beforeEach((t) => {
-      //  console.log(t.to, t.from);
-      let navbars = [t.from.navbar || {}, t.to.navbar]
-      vm.$emit('PageTransitionEvent',
-        {reverse: window.nextTransition == 'back', navbars: navbars})
+      // todo:
       t.next()
     })
 
     router.afterEach(() => {
-      // todo
+      // todo:
     })
 
     router.redirect({
       '*': this.defaultRouterUrl
     })
 
-    router.start(app, '#app')
+    router.start(app, '[von-app]')
 
     window.$router = router
   }
@@ -62,12 +57,12 @@ class VueApp {
 
 export default {
   install(Vue, options) {
-    Vue.transition('page', {enterClass: 'page-enter', leaveClass: 'page-leave'})
+    Vue.transition('von-page', {enterClass: 'von-page-enter', leaveClass: 'von-page-leave'})
 
     const routers = options.routers
     const defaultRouterUrl = options.defaultRouterUrl
 
-    let app = new VueApp(routers, defaultRouterUrl)
+    let app = new VonApp(routers, defaultRouterUrl)
     app.start()
   }
 }

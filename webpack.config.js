@@ -12,7 +12,7 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, './node_modules')],
     alias: {
-      'vue-app': path.resolve(__dirname, './src'),
+      'von-app': path.resolve(__dirname, './src'),
     }
   },
   resolveLoader: {
