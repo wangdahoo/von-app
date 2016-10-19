@@ -24,8 +24,7 @@
 </script>
 
 <style scoped>
-  .von-page {
-    background-color: #ec4949;
-    color: #fff;
+  .page {
+    
   }
 </style>

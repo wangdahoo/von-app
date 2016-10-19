@@ -56,7 +56,7 @@ class VonApp {
 
 export default {
   install(Vue, options) {
-    Vue.transition('page', {enterClass: 'page-enter', leaveClass: 'page-leave'})
+    Vue.transition('view', {enterClass: 'view-enter', leaveClass: 'view-leave'})
 
     const routers = options.routers
     const defaultRouterUrl = options.defaultRouterUrl
