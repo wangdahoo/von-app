@@ -17,11 +17,9 @@
   @import '../less/_mixin';
   @themeColor: '#007aff';
 
-  * {
-    box-sizing: border-box;
-  }
-
   .navbar {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     position: absolute;
     left: 0;
     top: 0;
@@ -32,10 +30,12 @@
     .hairline(bottom, #ddd);
 
     .back-button, .menu-button {
-      width: 80px;
-      height: 44px;
       position: absolute;
       top: 0;
+      width: 80px;
+      height: 44px;
+      line-height: 44px;
+      z-index: 12;
 
       span {
         font-size: 16px;
@@ -49,21 +49,25 @@
 
     .back-button {
       left: 0;
-      padding: 12px 0 12px 10px;
+      padding: 0 0 0 10px;
       text-align: left;
     }
 
     .menu-button {
       right: 0;
-      padding: 12px 10px 12px 0;
+      padding: 0 10px 0 0;
       text-align: right;
     }
 
     .center {
-      margin: 0 80px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 44px;
       padding: 0;
       text-align: center;
+      z-index: 11;
 
       .title {
         font-size: 18px;
@@ -79,6 +83,7 @@
       background-repeat: no-repeat;
       font-style: normal;
       position: relative;
+
       &.icon-back {
         width: 12px;
         height: 20px;
