@@ -3,11 +3,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+import Navbar from './components/Navbar.vue'
+
 let vm = new Vue()
+
+Vue.directive('page', (data) => {
+  vm.$emit('PageTransitionEvent', data)
+})
 
 let app = Vue.extend({
   components: {
-
+    Navbar
   },
 
   created() {
@@ -49,6 +55,22 @@ class VonApp {
     })
 
     router.start(app, '[von-app]')
+
+    router.nextDirection = (direction) => {
+      document.querySelector('[von-app]').setAttribute('transition-direction', direction);
+    }
+
+    router._go = router.go
+
+    router.forward = router.go = (target) => {
+      router.nextDirection('forward');
+      setTimeout(() => { router._go(target) })
+    }
+
+    router.back = (target) => {
+      router.nextDirection('back');
+      setTimeout(() => { router._go(target) })
+    }
 
     window.$router = router
   }

@@ -32,15 +32,28 @@
   &.view-leave {
     .view-left();
   }
+}
 
-  &.reversed {
+[transition-direction="forward"] {
+  .view {
+    &.view-enter {
+      .view-right();
+    }
+
+    &.view-leave {
+      .view-left();
+    }
+  }
+}
+
+[transition-direction="back"] {
+  .view {
     &.view-enter {
       .view-left();
     }
 
     &.view-leave {
-      .view-right()
+      .view-right();
     }
   }
-
 }

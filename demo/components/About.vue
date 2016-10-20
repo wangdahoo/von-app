@@ -1,9 +1,10 @@
 <template>
-  <div class="page">
+  <div class="page has-navbar" v-page="{title: 'About', showBackButton: true}">
     <div class="page-content">
-        <h1>About</h1>
-
-        <a v-link="{path: '/'}">back</a>
+      <h1>about us</h1>
+      <p>
+        blablabla...
+      </p>
     </div>
   </div>
 </template>
@@ -18,7 +19,13 @@
         return {}
     },
     ready() {},
-    methods: {}
+    methods: {
+      back() {
+        $router.back({
+          path: '/'
+        });
+      }
+    }
   }
 </script>
 
