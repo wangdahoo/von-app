@@ -7,7 +7,7 @@ import Navbar from './components/Navbar.vue'
 
 let vm = new Vue()
 
-Vue.directive('page', (data) => {
+Vue.directive('nav', (data) => {
   vm.$emit('PageTransitionEvent', data)
 })
 

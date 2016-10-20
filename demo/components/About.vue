@@ -1,34 +1,23 @@
 <template>
-  <div class="page has-navbar" v-page="{title: 'About', showBackButton: true}">
+  <div class="page has-navbar" v-nav="{title: 'About', showBackButton: true, showMenuButton: true, onMenuButtonClick: refresh}">
     <div class="page-content">
-      <h1>about us</h1>
-      <p>
-        blablabla...
-      </p>
+      <span>blablabla...</span>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    components: {
-
-    },
-
-    data() {
-        return {}
-    },
-    ready() {},
     methods: {
-      back() {
-        $router.back({
-          path: '/'
-        });
+      refresh() {
+        console.log('refresh page!');
       }
     }
   }
 </script>
 
 <style>
-  .page {}
+  .page-content {
+    padding: 54px 14px 14px 14px !important;
+  }
 </style>
