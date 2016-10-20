@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div v-if="showBackButton" class="back-button" @click="backButtonClicked()">
-      <i class="icon icon-back"></i>
+      {{{ backButtonText }}}
     </div>
 
     <div class="center">
@@ -112,6 +112,7 @@
         onBackButtonClick: undefined,
         showMenuButton: false,
         onMenuButtonClick: undefined,
+        backButtonText: '<i class="icon icon-back"></i>',
         menuButtonText: '<i class="icon icon-bars"></i>'
       }
     },
@@ -122,6 +123,9 @@
         this.title = data.title
         this.showBackButton = data.showBackButton
         this.onBackButtonClick = data.onBackButtonClick
+        if (data.backButtonText)
+          this.backButtonText = data.backButtonText
+
         this.showMenuButton = data.showMenuButton
         this.onMenuButtonClick = data.onMenuButtonClick
         if (data.menuButtonText)
