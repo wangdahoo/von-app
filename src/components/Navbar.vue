@@ -4,13 +4,13 @@
       {{{ backButtonText }}}
     </div>
 
-    <div class="center">
-      <span class="title">{{title}}</span>
-    </div>
-
     <div v-if="showMenuButton" class="menu-button" @click="menuButtonClicked()">
       {{{ menuButtonText }}}
     </div>
+
+    <!-- <div class="center">
+      <span class="title">{{title}}</span>
+    </div> -->
   </div>
 </template>
 <style lang='less'>
@@ -70,8 +70,13 @@
       z-index: 11;
 
       .title {
+        display: inline-block;
         font-size: 18px;
         line-height: 44px;
+        // transition: all .4s cubic-bezier(.42, 0, .58, 1);
+        // -webkit-transition: all .4s cubic-bezier(.42, 0, .58, 1);
+        transition: all .4s ease;
+        -webkit-transition: all .4s ease;
       }
     }
 
@@ -102,9 +107,53 @@
     }
 
   }
+
 </style>
 <script>
   import channel from '../services/channel'
+
+  function getTitleTransitionDistance(t) {
+    // console.log(document.body.offsetWidth, t.offsetWidth, (document.body.offsetWidth - t.offsetWidth) / 2 - 10)
+    return (document.body.offsetWidth - t.offsetWidth) / 2 - 10
+  }
+
+  function centerElement(navbar, title, direction) {
+    let centerId = Math.random().toString(36).substring(3, 8)
+    let c = document.createElement('div')
+    c.id = centerId
+    c.className = 'center'
+    let t = document.createElement('span')
+    t.className = 'title'
+    t.innerHTML = title
+
+    let reverse = direction == 'back'
+    t.style.opacity = 0
+    t.style.transform = 'translate3d(' + (reverse ? '-' : '') + getTitleTransitionDistance(t) + 'px,0,0)'
+    t.style.webkitTransform = 'translate3d(' + (reverse ? '-' : '') + getTitleTransitionDistance(t) + 'px,0,0)'
+
+    if (!navbar.querySelector('.center')) {
+      t.style.opacity = 1
+      t.style.transform = 'translate3d(0,0,0)'
+      t.style.webkitTransform = 'translate3d(0,0,0)'
+    }
+
+    c.appendChild(t)
+    navbar.appendChild(c)
+    return document.getElementById(centerId)
+  }
+
+  function titleIn(t) {
+    t.style.opacity = 1
+    t.style.transform = 'translate3d(0,0,0)'
+    t.style.webkitTransform = 'translate3d(0,0,0)'
+  }
+
+  function titleOut(t, direction) {
+    let reverse = direction == 'back'
+    t.style.opacity = 0
+    t.style.transform = 'translate3d(' + (reverse ? '' : '-') + getTitleTransitionDistance(t) + 'px,0,0)'
+    t.style.webkitTransform = 'translate3d(' + (reverse ? '' : '-') + getTitleTransitionDistance(t) + 'px,0,0)'
+  }
 
   export default {
     data() {
@@ -115,13 +164,33 @@
         showMenuButton: false,
         onMenuButtonClick: undefined,
         backButtonText: '<i class="icon icon-back"></i>',
-        menuButtonText: '<i class="icon icon-bars"></i>'
+        menuButtonText: '<i class="icon icon-bars"></i>',
       }
     },
 
     created() {
+      // center leave
+      let cl;
+
       channel.$on('PageTransitionEvent', (data) => {
+        let direction = document.querySelector('[von-app]').getAttribute('transition-direction')
         this.title = data.title
+
+        let c = centerElement(this.$el, this.title, direction)
+
+        setTimeout(() => {
+          titleIn(c.querySelector('.title'))
+          if (cl) {
+            titleOut(cl.querySelector('.title'), direction)
+          }
+
+          setTimeout(() => {
+            if (cl) this.$el.removeChild(cl)
+            cl = c
+          }, 500)
+        })
+
+        // nav item & click event handler
         this.showBackButton = data.showBackButton
         this.onBackButtonClick = data.onBackButtonClick
         if (data.backButtonText)
@@ -132,6 +201,9 @@
         if (data.menuButtonText)
           this.menuButtonText = data.menuButtonText
       })
+    },
+
+    ready() {
     },
 
     methods: {
