@@ -1,5 +1,5 @@
 <template>
-  <div class="page has-navbar" v-nav="{title: 'About', showBackButton: true, showMenuButton: true, onMenuButtonClick: onMenuButtonClick}">
+  <div class="page has-navbar" v-nav="{title: '关于我们', showBackButton: true, showMenuButton: true, onMenuButtonClick: onMenuButtonClick}">
     <div class="page-content">
       <span>blablabla...</span>
     </div>

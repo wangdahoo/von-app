@@ -4,11 +4,10 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import Navbar from './components/Navbar.vue'
-
-let vm = new Vue()
+import channel from './services/channel.vue'
 
 Vue.directive('nav', (data) => {
-  vm.$emit('PageTransitionEvent', data)
+  channel.$emit('PageTransitionEvent', data)
 })
 
 let app = Vue.extend({
@@ -17,15 +16,11 @@ let app = Vue.extend({
   },
 
   created() {
-    vm.$on('PageTransitionEvent', (data) => {
-      this.notify('PageTransitionEvent', data)
-    })
+    
   },
 
   methods: {
-    notify(eventName, data) {
-      this.$broadcast(eventName, data)
-    }
+
   }
 })
 

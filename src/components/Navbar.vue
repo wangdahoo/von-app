@@ -61,7 +61,7 @@
 
     .center {
       position: absolute;
-      top: 0;
+      top: 0px;
       left: 0;
       width: 100%;
       height: 44px;
@@ -104,6 +104,8 @@
   }
 </style>
 <script>
+  import channel from '../services/channel'
+
   export default {
     data() {
       return {
@@ -118,8 +120,7 @@
     },
 
     created() {
-      this.$on('PageTransitionEvent', (data) => {
-
+      channel.$on('PageTransitionEvent', (data) => {
         this.title = data.title
         this.showBackButton = data.showBackButton
         this.onBackButtonClick = data.onBackButtonClick
