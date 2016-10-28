@@ -1,5 +1,6 @@
 {
   "name": "vue-app",
+  "version": "0.1.0",
   "description": "vue app demo",
   "author": "wangdahoo <157195705@qq.com>",
   "private": true,

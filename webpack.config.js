@@ -65,7 +65,13 @@ if (process.env.NODE_ENV === 'production') {
     output: {
       path: path.resolve(__dirname, './dist'),
       publicPath: '/dist/',
-      filename: 'von-app.js'
+      filename: 'von-app.js',
+      libraryTarget: "var",
+      library: "VonApp"
+    },
+    externals: {
+      "vue": "Vue",
+      "vue-router": "VueRouter"
     },
     resolve: {
       extensions: ['', '.js', '.vue'],
@@ -110,7 +116,7 @@ if (process.env.NODE_ENV === 'production') {
     },
     devtool: '#source-map'
   }
-  
+
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
