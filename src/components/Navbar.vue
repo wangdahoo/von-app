@@ -8,9 +8,6 @@
       {{{ menuButtonText }}}
     </div>
 
-    <!-- <div class="center">
-      <span class="title">{{title}}</span>
-    </div> -->
   </div>
 </template>
 <style lang='less'>
