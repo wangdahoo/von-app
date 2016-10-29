@@ -1,7 +1,7 @@
 {
-  "name": "vue-app",
+  "name": "von-app",
   "version": "0.1.1",
-  "description": "vue app demo",
+  "description": "Foundation Component for Vonic.",
   "main": "dist/von-app.js",
   "author": "wangdahoo <157195705@qq.com>",
   "scripts": {
