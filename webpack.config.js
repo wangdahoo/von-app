@@ -65,9 +65,7 @@ if (process.env.NODE_ENV === 'production') {
     output: {
       path: path.resolve(__dirname, './dist'),
       publicPath: '/dist/',
-      filename: 'von-app.js',
-      libraryTarget: "var",
-      library: "VonApp"
+      filename: 'von-app.js'
     },
     externals: {
       "vue": "Vue",

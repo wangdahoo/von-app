@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>VonApp Example</title>
+  </head>
+  <body>
+    <div von-app>
+      <navbar></navbar>
+      <router-view transition="view" class="view"></router-view>
+    </div>
+
+    <!-- Step 1: 引入 vue.js 和 vue-router.js -->
+    <script src="../../node_modules/vue/dist/vue.min.js"></script>
+    <script src="../../node_modules/vue-router/dist/vue-router.min.js"></script>
+
+    <!-- Step 2: 引入 von-app.js -->
+    <script src="../von-app.js"></script>
+
+    <!-- Step 3: 页面模板 -->
+    <script type="x/template" id="index">
+      <div class="page has-navbar" v-nav="{title: '首页', showBackButton: false}">
+        <div class="page-content">
+          <a v-link="{path: '/about'}">about</a>
+        </div>
+      </div>
+    </script>
+
+    <script type="x/template" id="about">
+      <div class="page has-navbar" v-nav="{title: '关于我们', showBackButton: true, showMenuButton: true, onMenuButtonClick: onMenuButtonClick}">
+        <div class="page-content">
+          <span>blablabla...</span>
+        </div>
+      </div>
+    </script>
+
+    <!-- Step 4: 页面样式 -->
+    <style>
+      .page-content {
+        padding: 54px 14px 14px 14px !important;
+      }
+    </style>
+
+    <!-- Step 5: 页面js -->
+    <script>
+      var Index = Vue.component('index', {
+        template: '#index'
+      });
+
+      var About = Vue.component('about', {
+        template: '#about',
+        methods: {
+          onMenuButtonClick() {
+            alert('menu button clicked!')
+          }
+        }
+      });
+
+      // 配置路由
+      const routers = {
+        '/': {
+          component: Index
+        },
+
+        '/about': {
+          component: About
+        }
+      }
+
+      // 启动应用
+      Vue.use(VonApp, {routers: routers, defaultRouterUrl: '/'})
+    </script>
+  </body>
+</html>

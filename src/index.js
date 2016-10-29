@@ -16,7 +16,7 @@ let app = Vue.extend({
   },
 
   created() {
-    
+
   },
 
   methods: {
@@ -71,14 +71,16 @@ class VonApp {
   }
 }
 
-export default {
-  install(Vue, options) {
-    Vue.transition('view', {enterClass: 'view-enter', leaveClass: 'view-leave'})
+VonApp.install = (Vue, options) => {
+  Vue.transition('view', {enterClass: 'view-enter', leaveClass: 'view-leave'})
 
-    const routers = options.routers
-    const defaultRouterUrl = options.defaultRouterUrl
+  const routers = options.routers
+  const defaultRouterUrl = options.defaultRouterUrl
 
-    let app = new VonApp(routers, defaultRouterUrl)
-    app.start()
-  }
+  let vonApp = new VonApp(routers, defaultRouterUrl)
+  vonApp.start()
 }
+
+export default VonApp
+
+window.VonApp = VonApp
