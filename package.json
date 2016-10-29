@@ -1,7 +1,8 @@
 {
   "name": "vue-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "vue app demo",
+  "main": "dist/von-app.js",
   "author": "wangdahoo <157195705@qq.com>",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --host=0.0.0.0",

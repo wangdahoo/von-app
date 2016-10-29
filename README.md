@@ -1,4 +1,4 @@
 # vue-app
 
-> vue app demo
+> Foundation Component for [Vonic](https://github.com/wangdahoo/vonic).
 
