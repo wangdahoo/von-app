@@ -1,5 +1,5 @@
 <template>
-  <div class="page has-navbar" v-nav="{title: '首页', showBackButton: false}">
+  <div class="page has-navbar" v-nav="{title: '首页'}">
     <div class="page-content">
       <a v-link="{path: '/about'}">about</a>
     </div>

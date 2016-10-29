@@ -13,16 +13,14 @@ Vue.directive('nav', (data) => {
 let app = Vue.extend({
   components: {
     Navbar
-  },
-
-  created() {
-
-  },
-
-  methods: {
-
   }
 })
+
+let VonAppConfig = {
+  beforeEach: undefined,
+  afterEach: undefined,
+  useHistory: false
+}
 
 class VonApp {
   constructor(routers, defaultRouterUrl) {
@@ -32,18 +30,15 @@ class VonApp {
 
   start() {
     let router = new VueRouter({
-      history: false
+      history: VonAppConfig.useHistory
     })
 
     router.map(this.routers)
 
-    // router.beforeEach(() => {
-    //
-    // })
-    //
-    // router.afterEach(() => {
-    //
-    // })
+    if (typeof VonAppConfig.beforeEach == 'function')
+      router.beforeEach(VonAppConfig.beforeEach)
+    if (typeof VonAppConfig.afterEach == 'function')
+      router.afterEach(VonAppConfig.afterEach)
 
     router.redirect({
       '*': this.defaultRouterUrl
@@ -79,6 +74,16 @@ VonApp.install = (Vue, options) => {
 
   let vonApp = new VonApp(routers, defaultRouterUrl)
   vonApp.start()
+}
+
+VonApp.setConfig = (name, value) => {
+  if (['beforeEach', 'afterEach', 'useHistory'].indexOf(name) == 1) throw 'Unknown config name.'
+  VonAppConfig[name] = value
+}
+
+VonApp.getConfig = (name) => {
+  if (['beforeEach', 'afterEach', 'useHistory'].indexOf(name) == 1) throw 'Unknown config name.'
+  return VonAppConfig[name]
 }
 
 export default VonApp

@@ -15,4 +15,6 @@ const routers = {
   }
 }
 
+VonApp.setConfig('useHistory', true)
+
 Vue.use(VonApp, {routers: routers, defaultRouterUrl: '/'})

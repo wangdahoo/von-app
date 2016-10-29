@@ -1,10 +1,10 @@
 <template>
   <div class="navbar">
-    <div v-if="showBackButton" class="back-button" @click="backButtonClicked()">
+    <div v-if="showBackButton" class="back-button" @click="backButtonClicked()" transition="fade">
       {{{ backButtonText }}}
     </div>
 
-    <div v-if="showMenuButton" class="menu-button" @click="menuButtonClicked()">
+    <div v-if="showMenuButton" class="menu-button" @click="menuButtonClicked()" transition="fade">
       {{{ menuButtonText }}}
     </div>
 
@@ -13,6 +13,7 @@
 <style lang='less'>
   @import '../less/_mixin';
   @themeColor: '#007aff';
+  @transitionDuration: .4s;
 
   .navbar {
     box-sizing: border-box;
@@ -70,10 +71,10 @@
         display: inline-block;
         font-size: 18px;
         line-height: 44px;
-        // transition: all .4s cubic-bezier(.42, 0, .58, 1);
-        // -webkit-transition: all .4s cubic-bezier(.42, 0, .58, 1);
-        transition: all .4s ease;
-        -webkit-transition: all .4s ease;
+        /*transition: all @transitionDuration cubic-bezier(.42, 0, .58, 1);*/
+        /*-webkit-transition: all @transitionDuration cubic-bezier(.42, 0, .58, 1);*/
+        transition: all @transitionDuration ease;
+        -webkit-transition: all @transitionDuration ease;
       }
     }
 
@@ -103,14 +104,22 @@
       }
     }
 
-  }
+    .fade-transition {
+      transition: all @transitionDuration ease;
+      -webkit-transition: all @transitionDuration ease;
+      opacity: 1;
+    }
 
+    .fade-enter, .fade-leave {
+      opacity: 0;
+    }
+
+  }
 </style>
 <script>
   import channel from '../services/channel'
 
   function getTitleTransitionDistance(t) {
-    // console.log(document.body.offsetWidth, t.offsetWidth, (document.body.offsetWidth - t.offsetWidth) / 2 - 10)
     return (document.body.offsetWidth - t.offsetWidth) / 2 - 10
   }
 
@@ -156,7 +165,7 @@
     data() {
       return {
         title: '',
-        showBackButton: true,
+        showBackButton: false,
         onBackButtonClick: undefined,
         showMenuButton: false,
         onMenuButtonClick: undefined,
