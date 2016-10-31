@@ -120,9 +120,7 @@
   }
 
   // android or other
-  .navbar,
   .grade-b .navbar {
-
     .center .title,
     .fade-transition
     {

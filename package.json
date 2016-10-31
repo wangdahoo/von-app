@@ -1,6 +1,6 @@
 {
   "name": "von-app",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Foundation Component for Vonic.",
   "main": "dist/von-app.js",
   "author": "wangdahoo <157195705@qq.com>",
