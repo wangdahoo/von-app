@@ -13,7 +13,11 @@
 <style lang='less'>
   @import '../less/_mixin';
   @themeColor: '#007aff';
-  @transitionDuration: .4s;
+  @ios-transition-duration: .4s;
+  @ios-transition-time-func: ease;
+
+  @android-transition-duration: .2s;
+  @android-transition-time-func: linear;
 
   .navbar {
     box-sizing: border-box;
@@ -71,10 +75,10 @@
         display: inline-block;
         font-size: 18px;
         line-height: 44px;
-        /*transition: all @transitionDuration cubic-bezier(.42, 0, .58, 1);*/
-        /*-webkit-transition: all @transitionDuration cubic-bezier(.42, 0, .58, 1);*/
-        transition: all @transitionDuration ease;
-        -webkit-transition: all @transitionDuration ease;
+        .transition(@ios-transition-duration);
+        .transition-time-func(@ios-transition-time-func);
+        -webkit-transition-property: opacity, -webkit-transform, box-shadow;
+        transition-property: opacity, transform, box-shadow;
       }
     }
 
@@ -105,19 +109,32 @@
     }
 
     .fade-transition {
-      transition: all @transitionDuration ease;
-      -webkit-transition: all @transitionDuration ease;
+      .transition(@android-transition-duration);
+      .transition-time-func(@android-transition-time-func);
       opacity: 1;
     }
 
     .fade-enter, .fade-leave {
       opacity: 0;
     }
-
   }
+
+  // android or other
+  .navbar,
+  .grade-b .navbar {
+
+    .center .title,
+    .fade-transition
+    {
+      transition: all @android-transition-duration @android-transition-time-func;
+      -webkit-transition: all @android-transition-duration @android-transition-time-func;
+    }
+  }
+
 </style>
 <script>
   import channel from '../services/channel'
+  import utils from '../services/utils'
 
   function getTitleTransitionDistance(t) {
     return (document.body.offsetWidth - t.offsetWidth) / 2 - 10
@@ -134,8 +151,11 @@
 
     let reverse = direction == 'back'
     t.style.opacity = 0
-    t.style.transform = 'translate3d(' + (reverse ? '-' : '') + getTitleTransitionDistance(t) + 'px,0,0)'
-    t.style.webkitTransform = 'translate3d(' + (reverse ? '-' : '') + getTitleTransitionDistance(t) + 'px,0,0)'
+
+    if (utils.is_ios_device()) {
+      t.style.transform = 'translate3d(' + (reverse ? '-' : '') + getTitleTransitionDistance(t) + 'px,0,0)'
+      t.style.webkitTransform = 'translate3d(' + (reverse ? '-' : '') + getTitleTransitionDistance(t) + 'px,0,0)'
+    }
 
     if (!navbar.querySelector('.center')) {
       t.style.opacity = 1
@@ -157,8 +177,10 @@
   function titleOut(t, direction) {
     let reverse = direction == 'back'
     t.style.opacity = 0
-    t.style.transform = 'translate3d(' + (reverse ? '' : '-') + getTitleTransitionDistance(t) + 'px,0,0)'
-    t.style.webkitTransform = 'translate3d(' + (reverse ? '' : '-') + getTitleTransitionDistance(t) + 'px,0,0)'
+    if (utils.is_ios_device()) {
+      t.style.transform = 'translate3d(' + (reverse ? '' : '-') + getTitleTransitionDistance(t) + 'px,0,0)'
+      t.style.webkitTransform = 'translate3d(' + (reverse ? '' : '-') + getTitleTransitionDistance(t) + 'px,0,0)'
+    }
   }
 
   export default {

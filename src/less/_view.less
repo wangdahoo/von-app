@@ -1,7 +1,10 @@
 @import "_mixin";
 
-@duration: 500ms;
-@time-func: cubic-bezier(.36, .66, .04, 1);
+@ios-transition-duration: .4s;
+@ios-transition-time-func: cubic-bezier(.36, .66, .04, 1);
+
+@android-transition-duration: .2s;
+@android-transition-time-func: cubic-bezier(0.4, 0.6, 0.2, 1);
 
 .view-right() {
   z-index: 2;
@@ -15,9 +18,10 @@
   .translate3d(-33%, 0, 0);
 }
 
-.view {
-  .transition(@duration);
-  .transition-time-func(@time-func);
+.view,
+.grade-a .view {
+  .transition(@ios-transition-duration);
+  .transition-time-func(@ios-transition-time-func);
   -webkit-transition-property: opacity, -webkit-transform, box-shadow;
           transition-property: opacity, transform, box-shadow;
 
@@ -32,6 +36,12 @@
   &.view-leave {
     .view-left();
   }
+}
+
+// android
+.grade-b .view {
+  .transition(@android-transition-duration);
+  .transition-time-func(@android-transition-time-func);
 }
 
 [transition-direction="forward"] {

@@ -5,6 +5,7 @@ Vue.use(VueRouter)
 
 import Navbar from './components/Navbar.vue'
 import channel from './services/channel.vue'
+import utils from './services/utils.js'
 
 Vue.directive('nav', (data) => {
   channel.$emit('PageTransitionEvent', data)
@@ -13,6 +14,22 @@ Vue.directive('nav', (data) => {
 let app = Vue.extend({
   components: {
     Navbar
+  },
+
+  data() {
+    return {
+      gradeClass: 'grade-a'
+    }
+  },
+
+  ready() {
+    // grade-a for ios, grade-b for android & other
+    if (utils.is_ios_device()) {
+      this.gradeClass = 'grade-a'
+    } else {
+      this.gradeClass = 'grade-b'
+    }
+    document.querySelector('body').className = this.gradeClass
   }
 })
 
