@@ -8,6 +8,10 @@
     "dev": "webpack-dev-server --inline --hot --host=0.0.0.0",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wangdahoo/von-app.git"
+  },
   "dependencies": {
     "babel-runtime": "^6.0.0",
     "vue": "^1.0.0",
